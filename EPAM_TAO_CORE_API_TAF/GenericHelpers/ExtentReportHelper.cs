@@ -12,9 +12,9 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
         private static readonly object syncLock = new object();
         private static ExtentReportHelper _extentReportHelper = null;
 
-        public ExtentReports extent { get; set; }
-        public ExtentHtmlReporter reporter { get; set; }
-        public ExtentTest test { get; set; }
+        private ExtentReports extent { get; set; }
+        private ExtentHtmlReporter reporter { get; set; }
+        private ExtentTest test { get; set; }
 
         ExtentReportHelper(string strAUT)
         {

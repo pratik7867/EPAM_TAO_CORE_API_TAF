@@ -10,7 +10,30 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
 {
     public class ResponseHelper
     {
-        public static RestResponse ExecuteRequest(RestClient restClient, RestRequest restRequest)
+        private static readonly object syncLock = new object();
+        private static ResponseHelper _responseHelper = null;
+
+        ResponseHelper()
+        {
+
+        }
+
+        public static ResponseHelper responseHelper
+        {
+            get
+            {
+                lock (syncLock)
+                {
+                    if (_responseHelper == null)
+                    {
+                        _responseHelper = new ResponseHelper();
+                    }
+                    return _responseHelper;
+                }
+            }
+        }
+
+        public RestResponse ExecuteRequest(RestClient restClient, RestRequest restRequest)
         {
             try
             {
@@ -23,7 +46,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
             }
         }
 
-        public static DC GetContent<DC>(RestResponse restResponse)
+        public DC GetContent<DC>(RestResponse restResponse)
         {
             try
             {
@@ -36,7 +59,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
             }
         }
 
-        public static int GetStatusCode(RestResponse restResponse)
+        public int GetStatusCode(RestResponse restResponse)
         {
             try
             {
@@ -50,7 +73,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
             }
         }
 
-        public static string GetStatusDescription(RestResponse restResponse)
+        public string GetStatusDescription(RestResponse restResponse)
         {
             try
             {
@@ -63,7 +86,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
             }
         }
 
-        public static bool GetRequestSuccessFlag(RestResponse restResponse)
+        public bool GetRequestSuccessFlag(RestResponse restResponse)
         {
             try
             {
@@ -76,7 +99,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
             }
         }
 
-        public static IList<Parameter> GetResponseHeaders(RestResponse restResponse)
+        public IList<Parameter> GetResponseHeaders(RestResponse restResponse)
         {
             try
             {
@@ -89,7 +112,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
             }
         }
 
-        public static IList<Cookie> GetResponseCookies(RestResponse restResponse)
+        public IList<Cookie> GetResponseCookies(RestResponse restResponse)
         {
             try
             {

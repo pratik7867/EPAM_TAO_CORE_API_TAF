@@ -7,9 +7,32 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
 {
     public class RestClientSetup
     {
-        static RestClient restClient;
+        private static readonly object syncLock = new object();
+        private static RestClientSetup _restClientSetup = null;
 
-        public static RestClient SetupClient(string strBaseURL)
+        private RestClient restClient;
+
+        RestClientSetup()
+        {
+
+        }
+
+        public static RestClientSetup restClientSetup
+        {
+            get
+            {
+                lock (syncLock)
+                {
+                    if (_restClientSetup == null)
+                    {
+                        _restClientSetup = new RestClientSetup();
+                    }
+                    return _restClientSetup;
+                }
+            }
+        }
+
+        public RestClient SetupClient(string strBaseURL)
         {
             try
             {

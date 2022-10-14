@@ -8,10 +8,34 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
 {
     public class RequestHelper
     {
-        static RestRequest restRequest;
-        static Dictionary<string, string> DictOfRequestHeaders;
+        private static readonly object syncLock = new object();
+        private static RequestHelper _requestHelper = null;
 
-        private static Dictionary<string, string> getRequestHeaders()
+        private RestRequest restRequest;
+        private Dictionary<string, string> DictOfRequestHeaders;
+
+        RequestHelper()
+        {
+
+        }
+
+        public static RequestHelper requestHelper
+        {
+            get
+            {
+                lock (syncLock)
+                {
+                    if (_requestHelper == null)
+                    {
+                        _requestHelper = new RequestHelper();
+                    }
+                    return _requestHelper;
+                }
+            }
+        }
+
+
+        private Dictionary<string, string> getRequestHeaders()
         {
             try
             {
@@ -34,7 +58,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
         }
 
         #region GET REQUEST
-        public static RestRequest CreateGetRequest(string strResource)
+        public RestRequest CreateGetRequest(string strResource)
         {
             try
             {
@@ -60,7 +84,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
         #endregion
 
         #region POST REQUEST
-        public static RestRequest CreatePostRequest(string strResource, string strPayload, DataFormat dataFormat)
+        public RestRequest CreatePostRequest(string strResource, string strPayload, DataFormat dataFormat)
         {
             try
             {
@@ -86,7 +110,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
         #endregion
 
         #region PUT REQUEST
-        public static RestRequest CreatePutRequest(string strResource, string strPayload, DataFormat dataFormat)
+        public RestRequest CreatePutRequest(string strResource, string strPayload, DataFormat dataFormat)
         {
             try
             {
@@ -112,7 +136,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
         #endregion
 
         #region PATCH REQUEST
-        public static RestRequest CreatePatchRequest(string strResource, string strPayload, DataFormat dataFormat)
+        public RestRequest CreatePatchRequest(string strResource, string strPayload, DataFormat dataFormat)
         {
             try
             {
@@ -138,7 +162,7 @@ namespace EPAM_TAO_CORE_API_TAF.APIHelpers
         #endregion
 
         #region DELETE REQUEST
-        public static RestRequest CreateDeleteRequest(string strResource)
+        public RestRequest CreateDeleteRequest(string strResource)
         {
             try
             {
