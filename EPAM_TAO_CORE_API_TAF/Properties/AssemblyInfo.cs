@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EPAM_TAO_CORE_API_TAF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("API TAF")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("EPAM")]
 [assembly: AssemblyProduct("EPAM_TAO_CORE_API_TAF")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]

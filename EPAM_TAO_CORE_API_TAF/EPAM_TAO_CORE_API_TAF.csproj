@@ -449,6 +449,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="EPAM_TAO_CORE_API_TAF.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
